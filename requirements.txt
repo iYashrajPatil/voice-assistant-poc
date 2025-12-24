@@ -1,0 +1,5 @@
+speechrecognition
+requests
+pydub
+pyaudio
+python-dotenv
