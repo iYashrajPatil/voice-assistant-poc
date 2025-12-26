@@ -1,15 +1,20 @@
+from qa import qa
+from llm_logic import get_llm_answer
+
+
 def get_answer(user_text):
+    """
+    Hybrid logic:
+    1. Answer from offline Q&A if available
+    2. Otherwise, fallback to local LLM (Ollama)
+    """
 
-    if "company" in user_text and "name" in user_text:
-        return "Our company name is Electrosoft."
+    user_text = user_text.lower()
 
-    if "who" in user_text and ("you" in user_text or "are you" in user_text):
-        return "I am Electra, the company voice assistant."
+    # 1️⃣ Offline Q&A
+    for question in qa:
+        if question in user_text:
+            return qa[question]
 
-    if "where" in user_text and ("located" in user_text or "location" in user_text):
-        return "We are located in Maharashtra, India."
-
-    if "what" in user_text and "do" in user_text and "company" in user_text:
-        return "We provide software and artificial intelligence solutions."
-
-    return "Sorry, I did not understand that. Please ask again."
+    # 2️⃣ General-purpose LLM
+    return get_llm_answer(user_text)
