@@ -1,46 +1,144 @@
-# Voice Assistant – Python (POC)
+# 🎙️ General-Purpose AI Voice Assistant (Offline)
 
-## Overview
-This project is a Python-based conversational voice assistant developed as a proof of concept.  
-It accepts user voice input, processes predefined company-related questions offline, and responds using a female text-to-speech voice.
+This project is a **general-purpose AI voice assistant** that supports:
+- Voice input
+- Intelligent responses
+- Offline predefined Q&A
+- General open-domain answers using a **local LLM**
+- Voice output (Text-to-Speech)
 
-## Features
-- Voice input using microphone
-- Speech-to-text using Google Speech Recognition (Indian English)
-- Offline company Q&A (no LLM / no AI model)
-- Female voice output using ElevenLabs TTS
-- Windows-compatible audio playback
-- Error handling and retry mechanism for TTS
+The system is designed to run on **low-end machines (4GB RAM)** and works **offline for reasoning**.
 
-## Tech Stack
-- Python 3.10
-- SpeechRecognition
-- ElevenLabs Text-to-Speech API
-- FFmpeg
-- Windows native audio playback
+---
 
-## Project Flow
-1. User speaks a question
-2. Speech is converted to text
-3. Text is matched with predefined company FAQs
-4. Response is converted to speech
-5. Audio is played back to the user
+## ✨ Features
 
-## Known Limitations
-- Speech recognition accuracy depends on microphone quality
-- Always-on listening may miss initial words in some cases
-- Internet required for TTS and STT
+- 🎤 Speech-to-Text (voice input)
+- 🧠 Hybrid intelligence:
+  - Offline predefined answers (company/domain questions)
+  - Local open-source LLM for general questions
+- 🔌 Fully offline reasoning (no cloud LLM APIs)
+- 🔊 Text-to-Speech output
+- 💻 Works on Windows & Ubuntu
+- 🧩 Modular and extensible architecture
 
-## How to Run
-1. Create and activate virtual environment
-2. Install dependencies:
+---
+
+## 🏗️ Architecture Overview
+
+User Voice
+↓
+Speech-to-Text
+↓
+Logic Router
+├── Offline Q&A (qa.py)
+└── Local LLM (Ollama)
+↓
+Text-to-Speech
+
+---
+
+## 📁 Project Structure
+
+Voicebot/
+│
+├── main.py # Application entry point
+├── listen.py # Speech-to-text
+├── speak.py # Text-to-speech
+├── logic.py # Hybrid logic (offline + LLM)
+├── qa.py # Predefined offline Q&A
+├── llm_logic.py # Local LLM (Ollama) integration
+│
+├── requirements.txt
+├── README.md
+├── .env # API keys (not committed)
+├── .gitignore
+└── venv/ # Virtual environment (ignored)
+
+
+---
+
+## ⚙️ Setup Instructions
+
+### 1️⃣ Clone the repository
+```bash
+git clone <your-repo-url>
+cd Voicebot
+```
+### 2️⃣ Create virtual environment
+```bash
+python -m venv venv
+## Activate
+venv\Scripts\activate
+```
+### 3️⃣ Install dependencies
+```bash
 pip install -r requirements.txt
-3. Add ElevenLabs API key in `speak.py`
-4. Run:
+```
+## 🧠 Local LLM Setup (Ollama)
 
-## Future Improvements
-- Push-to-talk or wake-word support
-- Hindi and Marathi language support
-- Improved intent detection
-- Offline speech recognition
+This project uses Ollama to run a lightweight open-source LLM locally.
+
+Install Ollama
+
+### Windows
+
+Download installer from https://ollama.com
+
+Install and restart system
+
+### Linux / Ubuntu
+```bash
+curl -fsSL https://ollama.com/install.sh | sh
+```
+### Pull the model
+```bash
+ollama pull phi
+```
+### Test
+```bash
+ollama run phi
+```
+## 🔑 Environment Variables
+
+Create a .env file in the project root:
+```bash
+ELEVENLABS_API_KEY=your_api_key_here
+```
+⚠️ .env is excluded from GitHub via .gitignore.
+
+### Run the App:
+``` bash
+python main.py
+```
+### Say:
+- “What is your company name?” (offline)
+- “Explain machine learning” (LLM)
+- “Stop” (exit)
+
+## ⚠️ Known Limitations
+
+- Small response delay due to local LLM + TTS
+- No internet-based knowledge updates
+- Voice latency depends on hardware and network (for TTS)
+
+## 🚀 Future Improvements
+
+- Offline Text-to-Speech
+- Hindi / Marathi language support
+- Streaming TTS for reduced latency
+- Better intent detection
+
+## 📌 Summary
+
+This project demonstrates a hybrid, general-purpose AI voice assistant using:
+
+- Offline rule-based logic
+- Local open-source language models
+- Modular voice pipeline
+
+###### Designed for privacy, offline usage, and low-resource systems.
+
+## Author:
+##### Yashraj Patil
 
