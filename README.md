@@ -25,7 +25,7 @@ The system is designed to run on **low-end machines (4GB RAM)** and works **offl
 ---
 
 ## 🏗️ Architecture Overview
-
+```
 User Voice
 ↓
 Speech-to-Text
@@ -37,7 +37,8 @@ Logic Router
 Text-to-Speech
 
 ---
-
+```
+```
 ## 📁 Project Structure
 
 Voicebot/
@@ -55,7 +56,7 @@ Voicebot/
 ├── .gitignore
 └── venv/ # Virtual environment (ignored)
 
-
+```
 ---
 
 ## ⚙️ Setup Instructions
